@@ -2,6 +2,10 @@ import { combineReducers, configureStore, miniSerializeError } from "@reduxjs/to
 import imagesSlice from './slices/addImage.slice'
 import storage from 'redux-persist/lib/storage'
 import {  persistReducer } from "redux-persist";
+import rememberSlice from './slices/rememberSlice'
+
+
+import authSlice from './slices/authSlice'
 
 const config={
     key:"root",
@@ -11,7 +15,9 @@ const config={
 
 const slices=combineReducers({
 
-    imagesSlice : imagesSlice      // same as imageSlice:imagesSlice but shows error
+    imagesSlice : imagesSlice ,     // same as imageSlice:imagesSlice but shows error
+    authSlice,
+    rememberSlice
 })
 
 
