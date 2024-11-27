@@ -17,11 +17,18 @@ import React from 'react'
         initialState,
        
         reducers:{
-            setPost(state,action){
-                state.loading=true;
-                state.data=action.payload;
-                state.error=null
 
+            setLoding(state,action)
+            {
+                state.loading=action.payload
+            },
+            setData(state,action)
+            {
+                state.data=action.payload
+            },
+            setError(state,action)
+            {
+                state.error=action.payload
             }
             
         }
@@ -29,7 +36,7 @@ import React from 'react'
     })
   
 
-export const {setPost}=postSlice.actions;
+export const {setLoding,setError,setData}=postSlice.actions;
 
 export default postSlice.reducer
 
@@ -39,17 +46,20 @@ export const getPost=()=>async(dispatch)=>{
 
     try {
      // alert()
+     dispatch(setLoding(true))
    
   const {data}= await axios({
       method:'get',
       url:'https://jsonplaceholder.typicode.com/posts',
   
   })
-
-  dispatch(setPost(data))
+  dispatch(setLoding(false))
+  dispatch(setData(data))
+  
     } catch (error) {
-     
-      console.log(error.response)
+        dispatch(setLoding(false))
+     dispatch(setError(error.response.data))
+      
     }
  
 
